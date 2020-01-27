@@ -43,12 +43,13 @@ def generate(env):
     env.AppendUnique(CCFLAGS = ['/D_DEBUG'] if flavor == 'debug' else ['/DNDEBUG'])
 
     # MSVC: Geerate a PDB
-    env.AppendUnique(LINKFLAGS = ['/DEBUG'])
+    env.AppendUnique(CCFLAGS = ['/Zi'])
+    env.AppendUnique(LINKFLAGS = ['/DEBUG:FULL'])
 
     # MSVC: Enable optimizations in release mode
     if flavor == 'release':
         env.AppendUnique(CCFLAGS = ['/Ox', '/GL'])
-        env.AppendUnique(LINKFLAGS = ['/LTCG'])
+        env.AppendUnique(LINKFLAGS = ['/LTCG', '/OPT:REF', '/OPT:ICF'])
         env.AppendUnique(ARFLAGS = ['/LTCG'])
 
     # MSVC: Compiler warning level
