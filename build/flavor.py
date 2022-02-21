@@ -58,3 +58,6 @@ def generate(env):
     # MSVC: Enable extra debugging checks in debug mode
     #if flavor == 'debug':
     #    env.AppendUnique(CCFLAGS = ['/sdl'])
+
+    # Tell VCPkg to use debug libraries for a debug build, unless specifically overridden
+    env.SetDefault(VCPKGDEBUG = (flavor == 'debug'))
